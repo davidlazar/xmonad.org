@@ -71,7 +71,7 @@ function named-sponsors {
 		GITHUB_TOKEN="${ADMIN_GITHUB_TOKEN:?}" \
 		o gh-org-sponsorships "${1:?org}" \
 		| jq-sort-by sponsorEntity.login \
-		| jq -s ''
+		| jq -s '.'
 	)
 	GITHUB_TOKEN="${ADMIN_GITHUB_TOKEN:?}" \
 	o gh-org-sponsors-monthly-tiers "${1:?org}" \
@@ -80,7 +80,7 @@ function named-sponsors {
 	| while read -r tier; do
 		<<<"$public_sponsorships" jq '.[]' | jq-filter-tier "$tier" | jq '.sponsorEntity'
 	done \
-	| jq -s ''
+	| jq -s '.'
 }
 
 "$@"
